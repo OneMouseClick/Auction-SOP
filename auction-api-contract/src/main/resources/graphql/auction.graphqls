@@ -1,0 +1,148 @@
+# =============================================================================
+# GraphQL-контракт для Auction API
+# =============================================================================
+
+# Пользовательские скалярные типы
+scalar DateTime
+scalar BigDecimal
+
+# ---------------------------------------------------------------------------
+# Основные типы данных
+# ---------------------------------------------------------------------------
+
+# Пользователь (продавец или покупатель)
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    rating: Float!
+}
+
+# Статус лота
+enum LotStatus {
+    PENDING_VERIFICATION
+    ACTIVE
+    SOLD
+    EXPIRED
+    CANCELLED
+}
+
+# Лот аукциона
+type Lot {
+    id: ID!
+    title: String!
+    description: String
+    seller: User!
+    startingPrice: BigDecimal!
+    currentPrice: BigDecimal
+    bidStep: BigDecimal!
+    startTime: DateTime
+    endTime: DateTime
+    status: LotStatus!
+    winner: User
+    createdAt: DateTime
+    updatedAt: DateTime
+
+    # Связь: ставки по данному лоту
+    bids(page: Int = 0, size: Int = 20): BidConnection!
+}
+
+# Ставка
+type Bid {
+    id: ID!
+    lotId: ID!
+    bidder: User!
+    amount: BigDecimal!
+    placedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Типы для пагинации
+# ---------------------------------------------------------------------------
+
+type LotConnection {
+    content: [Lot!]!
+    pageInfo: PageInfo!
+    totalElements: Int!
+}
+
+type BidConnection {
+    content: [Bid!]!
+    pageInfo: PageInfo!
+    totalElements: Int!
+}
+
+type PageInfo {
+    pageNumber: Int!
+    pageSize: Int!
+    totalPages: Int!
+    last: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Входные типы для мутаций
+# ---------------------------------------------------------------------------
+
+input CreateLotInput {
+    sellerId: ID!
+    title: String!
+    description: String
+    startingPrice: BigDecimal!
+    bidStep: BigDecimal!
+    durationHours: Int
+}
+
+input UpdateLotInput {
+    title: String!
+    description: String
+    startingPrice: BigDecimal!
+    bidStep: BigDecimal!
+}
+
+input PatchLotInput {
+    title: String
+    description: String
+    bidStep: BigDecimal
+}
+
+input PlaceBidInput {
+    bidderId: ID!
+    amount: BigDecimal!
+}
+
+input LotFilter {
+    status: LotStatus
+    sellerId: ID
+}
+
+# ---------------------------------------------------------------------------
+# Корневые точки входа: запросы и мутации
+# ---------------------------------------------------------------------------
+
+type Query {
+    # Получить лот по ID
+    lot(id: ID!): Lot
+
+    # Список лотов с фильтрацией и пагинацией
+    lots(filter: LotFilter, page: Int = 0, size: Int = 20): LotConnection!
+
+    # Получить ставку по ID
+    bid(id: ID!): Bid
+}
+
+type Mutation {
+    # Создать новый лот
+    createLot(input: CreateLotInput!): Lot!
+
+    # Полное обновление лота
+    updateLot(id: ID!, input: UpdateLotInput!): Lot!
+
+    # Частичное обновление лота
+    patchLot(id: ID!, input: PatchLotInput!): Lot!
+
+    # Удалить лот
+    deleteLot(id: ID!): Boolean!
+
+    # Разместить ставку
+    placeBid(lotId: ID!, input: PlaceBidInput!): Bid!
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        # Собрать всё в правильном порядке
+        .\mvnw install -DskipTests
+
+        # Запустить auction-rest (REST + GraphQL)
+        .\mvnw spring-boot:run -pl auction-rest -am
+    -->
+
+    <groupId>edu.rutmiit.demo</groupId>
+    <artifactId>auction-rest-root</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>auction-rest [root aggregator]</name>
+
+    <modules>
+        <!-- Контракты (библиотеки без main) — собираются первыми -->
+        <module>auction-api-contract</module>
+
+        <!-- Сервис — зависит от контрактов -->
+        <module>auction-rest</module>
+
+        <!-- RabbitMQ -->
+        <module>auction-events-contract</module>
+        <module>auction-scheduler-service</module>
+    </modules>
+
+</project>
