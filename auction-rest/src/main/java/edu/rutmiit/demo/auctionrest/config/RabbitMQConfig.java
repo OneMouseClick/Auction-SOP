@@ -1,8 +1,7 @@
 package edu.rutmiit.demo.auctionrest.config;
 
 import edu.rutmiit.demo.events.RoutingKeys;
-import org.springframework.amqp.core.ExchangeBuilder;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
@@ -13,6 +12,10 @@ import tools.jackson.databind.json.JsonMapper;
 
 @Configuration
 public class RabbitMQConfig {
+
+    // Очередь для результатов верификации
+    public static final String USER_VERIFIED_QUEUE = "q.auction.user-verified";
+    public static final String USER_VERIFIED_DLQ = "q.auction.user-verified.dlq";
 
     @Bean
     public MessageConverter jsonMessageConverter(JsonMapper jsonMapper) {
@@ -33,5 +36,44 @@ public class RabbitMQConfig {
                 .topicExchange(RoutingKeys.EXCHANGE)
                 .durable(true)
                 .build();
+    }
+
+    @Bean
+    public DirectExchange deadLetterExchange() {
+        return ExchangeBuilder
+                .directExchange(RoutingKeys.EXCHANGE + ".dlx")
+                .durable(true)
+                .build();
+    }
+
+    // Очередь для user.verified
+    @Bean
+    public Queue userVerifiedQueue() {
+        return QueueBuilder
+                .durable(USER_VERIFIED_QUEUE)
+                .deadLetterExchange(RoutingKeys.EXCHANGE + ".dlx")
+                .deadLetterRoutingKey(USER_VERIFIED_DLQ)
+                .build();
+    }
+
+    @Bean
+    public Queue userVerifiedDlq() {
+        return QueueBuilder.durable(USER_VERIFIED_DLQ).build();
+    }
+
+    @Bean
+    public Binding userVerifiedBinding(Queue userVerifiedQueue, TopicExchange eventsExchange) {
+        return BindingBuilder
+                .bind(userVerifiedQueue)
+                .to(eventsExchange)
+                .with(RoutingKeys.USER_VERIFIED);
+    }
+
+    @Bean
+    public Binding userVerifiedDlqBinding(Queue userVerifiedDlq, DirectExchange deadLetterExchange) {
+        return BindingBuilder
+                .bind(userVerifiedDlq)
+                .to(deadLetterExchange)
+                .with(USER_VERIFIED_DLQ);
     }
 }

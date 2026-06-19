@@ -27,23 +27,38 @@ public class InMemoryStorage {
 
     @PostConstruct
     public void init() {
+        // Создаем продавца (верифицированного)
         UserResponse seller = UserResponse.builder()
                 .id(userSequence.incrementAndGet())
                 .username("antique_master")
                 .email("antique@example.com")
                 .rating(98.5)
+                .verified(true)
+                .riskLevel("LOW")
+                .verificationLevel("FULL")
+                .recommendedAction("ALLOW")
+                .confidenceScore(95)
+                .verificationFlags(java.util.List.of())
                 .build();
 
+        // Создаем покупателя (не верифицированного)
         UserResponse buyer = UserResponse.builder()
                 .id(userSequence.incrementAndGet())
                 .username("collector_joe")
                 .email("joe@example.com")
                 .rating(95.0)
+                .verified(false)
+                .riskLevel("MEDIUM")
+                .verificationLevel("BASIC")
+                .recommendedAction("MANUAL_CHECK")
+                .confidenceScore(60)
+                .verificationFlags(java.util.List.of("SUSPICIOUS_EMAIL"))
                 .build();
 
         users.put(seller.getId(), seller);
         users.put(buyer.getId(), buyer);
 
+        // ... остальная инициализация лотов и ставок (как было)
         long lotId1 = lotSequence.incrementAndGet();
         LotResponse lot1 = LotResponse.builder()
                 .id(lotId1)

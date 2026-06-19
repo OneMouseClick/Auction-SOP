@@ -6,10 +6,19 @@
 
     <!--
         # Собрать всё в правильном порядке
-        .\mvnw install -DskipTests
+        .\mvnw clean install -DskipTests
 
-        # Запустить auction-rest (REST + GraphQL)
+        # Запустить gRPC Verification Server (порт gRPC: 9090, HTTP: 8083)
+        .\mvnw spring-boot:run -pl grpc-verification-service -am
+
+        # Запустить gRPC Verification Client (RabbitMQ → gRPC → RabbitMQ, HTTP: 8082)
+        .\mvnw spring-boot:run -pl grpc-verification-client -am
+
+        # Запустить auction-rest (REST + GraphQL, HTTP: 8080)
         .\mvnw spring-boot:run -pl auction-rest -am
+
+        # Запустить auction-scheduler-service (HTTP: 8084)
+        .\mvnw spring-boot:run -pl auction-scheduler-service -am
     -->
 
     <groupId>edu.rutmiit.demo</groupId>
@@ -21,13 +30,14 @@
     <modules>
         <!-- Контракты (библиотеки без main) — собираются первыми -->
         <module>auction-api-contract</module>
-
-        <!-- Сервис — зависит от контрактов -->
-        <module>auction-rest</module>
-
-        <!-- RabbitMQ -->
         <module>auction-events-contract</module>
+        <module>auction-grpc-contract</module>  <!-- НОВЫЙ -->
+
+        <!-- Сервисы — зависят от контрактов -->
+        <module>auction-rest</module>
         <module>auction-scheduler-service</module>
+        <module>grpc-verification-service</module>   <!-- НОВЫЙ -->
+        <module>grpc-verification-client</module>    <!-- НОВЫЙ -->
     </modules>
 
 </project>

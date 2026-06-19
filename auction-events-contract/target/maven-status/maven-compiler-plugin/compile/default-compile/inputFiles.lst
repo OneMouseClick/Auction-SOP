@@ -1,4 +1,4 @@
-/Users/dimasik/Desktop/СОП/Проект/auction-rest/auction-events-contract/src/main/java/edu/rutmiit/demo/events/AuctionEvent.java
-/Users/dimasik/Desktop/СОП/Проект/auction-rest/auction-events-contract/src/main/java/edu/rutmiit/demo/events/EventEnvelope.java
-/Users/dimasik/Desktop/СОП/Проект/auction-rest/auction-events-contract/src/main/java/edu/rutmiit/demo/events/EventMetadata.java
-/Users/dimasik/Desktop/СОП/Проект/auction-rest/auction-events-contract/src/main/java/edu/rutmiit/demo/events/RoutingKeys.java
+M:\SOP\Auction-SOP\auction-events-contract\src\main\java\edu\rutmiit\demo\events\AuctionEvent.java
+M:\SOP\Auction-SOP\auction-events-contract\src\main\java\edu\rutmiit\demo\events\EventEnvelope.java
+M:\SOP\Auction-SOP\auction-events-contract\src\main\java\edu\rutmiit\demo\events\EventMetadata.java
+M:\SOP\Auction-SOP\auction-events-contract\src\main\java\edu\rutmiit\demo\events\RoutingKeys.java

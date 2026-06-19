@@ -1,0 +1,5 @@
+M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\config\GrpcClientConfig.java
+M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\config\RabbitMQConfig.java
+M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\GrpcVerificationClientApplication.java
+M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\listener\UserRegisteredListener.java
+M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\publisher\VerificationEventPublisher.java

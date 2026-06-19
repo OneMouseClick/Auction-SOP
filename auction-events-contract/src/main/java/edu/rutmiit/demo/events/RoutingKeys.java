@@ -13,4 +13,9 @@ public final class RoutingKeys {
     public static final String ALL_LOT_EVENTS = "lot.*";
     public static final String ALL_BID_EVENTS = "bid.*";
     public static final String ALL_EVENTS = "#";
+
+    public static final String USER_REGISTERED = "user.registered";
+    public static final String USER_VERIFIED = "user.verified";
+
+    public static final String ALL_USER_EVENTS = "user.*";
 }

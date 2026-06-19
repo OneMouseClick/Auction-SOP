@@ -49,6 +49,10 @@ public class AuctionEventListener {
                     lotTracker.remove(lotId);
                     log.info("[SCHEDULER] Лот #{} снят с отслеживания", lotId);
                 }
+                case "user.registered", "user.verified" -> {
+                    // Просто логируем события пользователей (не влияют на планировщик)
+                    log.debug("[SCHEDULER] Получено событие пользователя: {}", eventType);
+                }
                 default -> log.debug("[SCHEDULER] Пропускаю событие: {}", eventType);
             }
 

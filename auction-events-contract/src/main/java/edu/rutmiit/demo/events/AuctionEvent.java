@@ -50,4 +50,31 @@ public sealed interface AuctionEvent {
             Long winnerId,
             BigDecimal finalPrice
     ) implements AuctionEvent {}
+
+    /**
+     * Пользователь зарегистрировался (требует верификации)
+     */
+    record UserRegistered(
+            Long userId,
+            String username,
+            String email,
+            String phone,
+            String ipAddress,
+            String userAgent,
+            java.time.Instant registrationDate
+    ) implements AuctionEvent {}
+
+    /**
+     * Пользователь верифицирован (результат gRPC-вызова)
+     */
+    record UserVerified(
+            Long userId,
+            boolean verified,
+            String riskLevel,        // LOW, MEDIUM, HIGH
+            String verificationLevel, // NONE, BASIC, FULL
+            String recommendedAction, // ALLOW, BLOCK, MANUAL_CHECK
+            int confidenceScore,
+            java.util.List<String> flags,
+            String message
+    ) implements AuctionEvent {}
 }
