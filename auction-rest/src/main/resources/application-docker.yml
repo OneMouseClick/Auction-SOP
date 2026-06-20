@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: auction-rest
+
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+    schema:
+      locations: classpath*:graphql/
+      introspection:
+        enabled: true
+    cors:
+      allowed-origins: "*"
+
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+dgs:
+  graphql:
+    schema-locations: classpath*:graphql/**/*.graphqls
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

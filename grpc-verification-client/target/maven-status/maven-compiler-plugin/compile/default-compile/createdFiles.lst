@@ -1,5 +1,5 @@
-edu\rutmiit\demo\grpcverificationclient\publisher\VerificationEventPublisher.class
-edu\rutmiit\demo\grpcverificationclient\listener\UserRegisteredListener.class
-edu\rutmiit\demo\grpcverificationclient\config\GrpcClientConfig.class
-edu\rutmiit\demo\grpcverificationclient\config\RabbitMQConfig.class
-edu\rutmiit\demo\grpcverificationclient\GrpcVerificationClientApplication.class
+edu/rutmiit/demo/grpcverificationclient/GrpcVerificationClientApplication.class
+edu/rutmiit/demo/grpcverificationclient/listener/UserRegisteredListener.class
+edu/rutmiit/demo/grpcverificationclient/publisher/VerificationEventPublisher.class
+edu/rutmiit/demo/grpcverificationclient/config/GrpcClientConfig.class
+edu/rutmiit/demo/grpcverificationclient/config/RabbitMQConfig.class

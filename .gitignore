@@ -1,0 +1,41 @@
+# Maven
+target/
+.mvn/
+.m2/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project/
+.classpath/
+.factorypath/
+.springBeans/
+.sts4-cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker
+*.jar
+*.war
+*.ear
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Application
+application-local.properties
+application-dev.properties

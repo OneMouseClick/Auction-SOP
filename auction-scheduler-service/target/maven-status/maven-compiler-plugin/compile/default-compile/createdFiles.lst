@@ -1,7 +1,7 @@
-edu\rutmiit\demo\auctionscheduler\storage\LotTracker.class
-edu\rutmiit\demo\auctionscheduler\SchedulerServiceApplication.class
-edu\rutmiit\demo\auctionscheduler\controller\SchedulerController.class
-edu\rutmiit\demo\auctionscheduler\storage\LotTracker$TrackedLot.class
-edu\rutmiit\demo\auctionscheduler\scheduler\LotExpirationScheduler.class
-edu\rutmiit\demo\auctionscheduler\listener\AuctionEventListener.class
-edu\rutmiit\demo\auctionscheduler\config\RabbitMQConfig.class
+edu/rutmiit/demo/auctionscheduler/config/RabbitMQConfig.class
+edu/rutmiit/demo/auctionscheduler/storage/LotTracker.class
+edu/rutmiit/demo/auctionscheduler/storage/LotTracker$TrackedLot.class
+edu/rutmiit/demo/auctionscheduler/listener/AuctionEventListener.class
+edu/rutmiit/demo/auctionscheduler/controller/SchedulerController.class
+edu/rutmiit/demo/auctionscheduler/SchedulerServiceApplication.class
+edu/rutmiit/demo/auctionscheduler/scheduler/LotExpirationScheduler.class

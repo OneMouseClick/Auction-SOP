@@ -1,0 +1,142 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    container_name: auction-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - auction-network
+    restart: unless-stopped
+
+  grpc-verification-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: grpc-verification-server
+    container_name: auction-grpc-server
+    ports:
+      - "8083:8083"
+      - "9090:9090"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      GRPC_SERVER_PORT: 9090
+      SERVER_PORT: 8083
+    networks:
+      - auction-network
+    restart: unless-stopped
+
+  grpc-verification-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: grpc-verification-client
+    container_name: auction-grpc-client
+    ports:
+      - "8081:8081"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      grpc-verification-server:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      GRPC_CLIENT_VERIFICATION-SERVER_HOST: grpc-verification-server
+      GRPC_CLIENT_VERIFICATION-SERVER_PORT: 9090
+      SERVER_PORT: 8081
+    networks:
+      - auction-network
+    restart: unless-stopped
+
+  auction-rest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: auction-rest
+    container_name: auction-rest
+    ports:
+      - "8080:8080"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      grpc-verification-client:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      SERVER_PORT: 8080
+    networks:
+      - auction-network
+    restart: unless-stopped
+
+  auction-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: auction-scheduler
+    container_name: auction-scheduler
+    ports:
+      - "8084:8084"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      SERVER_PORT: 8084
+    networks:
+      - auction-network
+    restart: unless-stopped
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: notification-service
+    container_name: auction-notifications
+    ports:
+      - "8085:8085"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      auction-rest:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      SERVER_PORT: 8085
+    networks:
+      - auction-network
+    restart: unless-stopped
+
+networks:
+  auction-network:
+    driver: bridge

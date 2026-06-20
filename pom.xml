@@ -37,7 +37,8 @@
         <module>auction-rest</module>
         <module>auction-scheduler-service</module>
         <module>grpc-verification-service</module>   <!-- НОВЫЙ -->
-        <module>grpc-verification-client</module>    <!-- НОВЫЙ -->
+        <module>grpc-verification-client</module>
+        <module>notification-service</module>    <!-- НОВЫЙ -->
     </modules>
 
 </project>

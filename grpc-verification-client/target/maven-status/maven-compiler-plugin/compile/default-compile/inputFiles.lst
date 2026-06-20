@@ -1,5 +1,5 @@
-M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\config\GrpcClientConfig.java
-M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\config\RabbitMQConfig.java
-M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\GrpcVerificationClientApplication.java
-M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\listener\UserRegisteredListener.java
-M:\SOP\Auction-SOP\grpc-verification-client\src\main\java\edu\rutmiit\demo\grpcverificationclient\publisher\VerificationEventPublisher.java
+/Users/dimasik/Desktop/СОП/Проект/auction-rest/grpc-verification-client/src/main/java/edu/rutmiit/demo/grpcverificationclient/GrpcVerificationClientApplication.java
+/Users/dimasik/Desktop/СОП/Проект/auction-rest/grpc-verification-client/src/main/java/edu/rutmiit/demo/grpcverificationclient/config/GrpcClientConfig.java
+/Users/dimasik/Desktop/СОП/Проект/auction-rest/grpc-verification-client/src/main/java/edu/rutmiit/demo/grpcverificationclient/config/RabbitMQConfig.java
+/Users/dimasik/Desktop/СОП/Проект/auction-rest/grpc-verification-client/src/main/java/edu/rutmiit/demo/grpcverificationclient/listener/UserRegisteredListener.java
+/Users/dimasik/Desktop/СОП/Проект/auction-rest/grpc-verification-client/src/main/java/edu/rutmiit/demo/grpcverificationclient/publisher/VerificationEventPublisher.java
